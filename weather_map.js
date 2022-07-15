@@ -1,7 +1,7 @@
 // Incomplete - Javascript I - AJAX & JS Fetch APIs - Weather Map Mapbox Exercise
 (async function () {
     "use strict";
-    var userSearchLocation;
+    var newMarker;
 
     // Mapbox map with various options (see comments).
     mapboxgl.accessToken = MAPBOX_API_KEY;
@@ -69,17 +69,21 @@
         console.log(searchInput.value);
         let searchCoords = (await getLngLatFromAddress(searchInput.value));
         map.setCenter(searchCoords);
-        userSearchLocation = new mapboxgl.Marker();
-        userSearchLocation.setLngLat(searchCoords);
-        userSearchLocation.addTo(map);
-        currentMarkers.push(userSearchLocation);
+        newMarker.remove();
+        newMarker = new mapboxgl.Marker({draggable: true});
+        newMarker.setLngLat(searchCoords);
+        newMarker.addTo(map);
+        onDragEnd();
+        newMarker.on('dragend', onDragEnd);
+        currentMarkers.push(newMarker);
     })
 
-     map.on('mousemove', (e) => {
-            JSON.stringify(e.lngLat.wrap());
-         let mousePosition = (e.lngLat);
-     });
-
+    // Variable that grabs coords of current mouse position in case we want to start with no marker
+    //and allow user to
+     // map.on('mousemove', (e) => {
+     //        JSON.stringify(e.lngLat.wrap());
+     //     let mousePosition = (e.lngLat);
+     // });
 
     let removeMarkersBtn = document.getElementById(`removeMarkersBtn`);
     removeMarkersBtn.addEventListener("click", function (event) {
@@ -108,6 +112,21 @@
         console.log(data);
     })
 
+    const coordinates = document.getElementById('coordinates');
+        newMarker = new mapboxgl.Marker({
+        draggable: true
+    })
+        newMarker.setLngLat([-98.489765, 29.426742])
+        newMarker.addTo(map);
+
+    function onDragEnd() {
+        let lngLat = newMarker.getLngLat();
+        console.log(lngLat);
+        coordinates.style.display = 'block';
+        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+    }
+
+    newMarker.on('dragend', onDragEnd);
 
 
 })();
