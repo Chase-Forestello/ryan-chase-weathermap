@@ -1,6 +1,7 @@
 // Incomplete - Javascript I - AJAX & JS Fetch APIs - Weather Map Mapbox Exercise
 (async function () {
     "use strict";
+    var userSearchLocation;
 
     // Mapbox map with various options (see comments).
     mapboxgl.accessToken = MAPBOX_API_KEY;
@@ -36,16 +37,6 @@
             });
     }
 
-    //Marker and popup set on Codeup
-    let codeup = await getLngLatFromAddress("Codeup");
-    console.log(`Codeup coords: ${codeup}`);
-    const codeupMarker = new mapboxgl.Marker();
-    codeupMarker.setLngLat(codeup);
-    codeupMarker.addTo(map);
-    var codeupPopup = new mapboxgl.Popup()
-        .setHTML(`<p>Codeup<br> 600 Navarro Street,<br> San Antonio, TX <hr></p>`)
-    codeupMarker.setPopup(codeupPopup)
-
     // Various zoom options with buttons and select
     let zoomInBtn = document.getElementById(`zoomIn`);
     zoomInBtn.addEventListener("click", function (event) {
@@ -67,22 +58,28 @@
         console.log(zoomSelect.value);
         map.setZoom(zoomSelect.value);
     });
+    const currentMarkers = [];
 
     // Allows user to enter any place or address and have a marker appear on
     // that place.
     // Markers are added to a current marker array for optional removal.
     let searchBtn = document.getElementById(`searchBtn`);
     let searchInput = document.getElementById(`searchInput`);
-    const currentMarkers = [];
     searchBtn.addEventListener('click', async function (event) {
         console.log(searchInput.value);
         let searchCoords = (await getLngLatFromAddress(searchInput.value));
         map.setCenter(searchCoords);
-        let userSearchLocation = new mapboxgl.Marker();
+        userSearchLocation = new mapboxgl.Marker();
         userSearchLocation.setLngLat(searchCoords);
         userSearchLocation.addTo(map);
         currentMarkers.push(userSearchLocation);
     })
+
+     map.on('mousemove', (e) => {
+            JSON.stringify(e.lngLat.wrap());
+         let mousePosition = (e.lngLat);
+     });
+
 
     let removeMarkersBtn = document.getElementById(`removeMarkersBtn`);
     removeMarkersBtn.addEventListener("click", function (event) {
@@ -92,6 +89,8 @@
             }
         }
     })
+
+
 
     // OpenWeather API call
     let queryParams = new URLSearchParams({
@@ -110,16 +109,5 @@
     })
 
 
-    function weatherBalloon() {
-        var key = `8b747032cec6870e51d90ce6c7852e8c`;
-        fetch('https://api.openweathermap.org/data/2.5/weather?lat=43.700111&lon=-79.416298&appid=8b747032cec6870e51d90ce6c7852e8c')
-            .then(function(resp) { return resp.json() }) // Convert data to json
-            .then(function(data) {
-                console.log(data);
-            })
-    }
 
-    window.onload = function() {
-        weatherBalloon();
-    }
-})()
+})();
