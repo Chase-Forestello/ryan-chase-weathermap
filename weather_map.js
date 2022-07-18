@@ -1,6 +1,20 @@
 // Incomplete - Javascript I - AJAX & JS Fetch APIs - Weather Map Mapbox Exercise
 (async function () {
     "use strict";
+
+
+
+    function clickEffect(e){
+        let d=document.createElement("div");
+        d.className="clickEffect";
+        d.style.top=e.clientY+"px";d.style.left=e.clientX+"px";
+        document.body.appendChild(d);
+        d.addEventListener('animationend',function(){d.parentElement.removeChild(d);}.bind(this));
+    }
+    document.addEventListener('click', clickEffect);
+    document.addEventListener('click', clickEffect);
+
+
     var newMarker;
 
     // Mapbox map with various options (see comments).
@@ -9,7 +23,7 @@
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [-98.489765, 29.426742], // starting position [lng, lat]
-        zoom: 10, // starting zoom
+        zoom: 7, // starting zoom
         projection: 'globe' // display the map as a 3D globe
     });
     map.on('style.load', () => {
@@ -48,16 +62,16 @@
                     <div class="card-title">
                         ${new Date(data.daily[i].dt * 1000).toDateString()}
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
                     ${data.daily[i].weather[0].description}
-                    <br>
+                    <hr class="hr">
                     HI: ${data.daily[i].temp.max}&#8457; <br> LO: ${data.daily[i].temp.min}&#8457;
                 </div>
             </div>
         </div>
         <div class="back card-block">
-            <p class="text-center fw-bold">content content content content content tent  content</p>
+            <div class="text-center">Humidity: ${data.daily[i].humidity}% <hr class="hrBack"> UV-Index: ${data.daily[i].uvi} <hr class="hrBack"> Feels like: ${data.daily[i].feels_like.day}&#8457</div>
         </div>
     </div>
 </div>
@@ -148,6 +162,7 @@
         console.log(lngLat);
         coordinates.style.display = 'block';
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        map.setCenter(lngLat);
         // OpenWeather API call
         let queryParams = new URLSearchParams({
             APPID: OPENWEATHER_API_KEY,
@@ -174,16 +189,16 @@
                     <div class="card-title">
                         ${new Date(data.daily[i].dt * 1000).toDateString()}
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
                     ${data.daily[i].weather[0].description}
-                    <br>
+                    <hr class="hr">
                     HI: ${data.daily[i].temp.max}&#8457; <br> LO: ${data.daily[i].temp.min}&#8457;
                 </div>
             </div>
         </div>
         <div class="back card-block">
-            <p class="text-center fw-bold">content content content content content tent  content</p>
+            <div class="text-center">Humidity: ${data.daily[i].humidity}% <hr class="hrBack"> UV-Index: ${data.daily[i].uvi} <hr class="hrBack"> Feels like: ${data.daily[i].feels_like.day}&#8457</div>
         </div>
     </div>
 </div>
