@@ -45,11 +45,15 @@
 
             weatherDataDiv.innerHTML +=
                 `<div class="card col-2">
-                        <div class="card-title text-nowrap">
-                        ${data.daily[i].dt}
-</div>
-<div class=""
-                    </div>`
+    <div class="card-title text-nowrap">
+        ${new Date(data.daily[i].dt * 1000).toDateString()}
+    </div>
+        <hr>
+        ${data.daily[i].weather[0].description}
+        <br>
+        ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
+    
+</div>`
         }
     })
     // new Date(dayInfo.dt * 1000).toDateString());
@@ -109,10 +113,10 @@
 
     // Variable that grabs coords of current mouse position in case we want to start with no marker
     //and allow user to
-     // map.on('mousemove', (e) => {
-     //        JSON.stringify(e.lngLat.wrap());
-     //     let mousePosition = (e.lngLat);
-     // });
+    // map.on('mousemove', (e) => {
+    //        JSON.stringify(e.lngLat.wrap());
+    //     let mousePosition = (e.lngLat);
+    // });
 
     let removeMarkersBtn = document.getElementById(`removeMarkersBtn`);
     removeMarkersBtn.addEventListener("click", function (event) {
@@ -128,11 +132,11 @@
 
 
     const coordinates = document.getElementById('coordinates');
-        newMarker = new mapboxgl.Marker({
+    newMarker = new mapboxgl.Marker({
         draggable: true
     })
-        newMarker.setLngLat([-98.489765, 29.426742])
-        newMarker.addTo(map);
+    newMarker.setLngLat([-98.489765, 29.426742])
+    newMarker.addTo(map);
 
     function onDragEnd() {
         const lngLat = newMarker.getLngLat();
@@ -158,21 +162,6 @@
     }
 
     newMarker.on('dragend', onDragEnd);
-
-
-
-    //everytime I hover on the body element
-    let table = document.getElementById("map");
-    table.addEventListener("mouseenter", function() {
-        //toggle the body element to turn dark
-        let body = document.getElementById("table");
-        body.classList.toggle("light-box");
-    })
-
-    table.addEventListener("mouseleave", function() {
-        let body = document.getElementById("table");
-        body.classList.toggle("light-box");
-    })
 
 
 })();
