@@ -41,21 +41,19 @@
         console.log(data);
         let weatherDataDiv = document.getElementById(`weatherData`);
         for (let i = 0; i < 5; i++) {
-
-
             weatherDataDiv.innerHTML +=
                 `<div class="card text-center col-2">
     <div class="card-title text-nowrap">
         ${new Date(data.daily[i].dt * 1000).toDateString()}
     </div>
         <hr>
+        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
         ${data.daily[i].weather[0].description}
         <br>
         ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
-    
 </div>`
         }
-    })
+    });
     // new Date(dayInfo.dt * 1000).toDateString());
 
     // Function to geocode addresses with fetch to mapbox.
@@ -154,10 +152,35 @@
                 return response.json();
             }).then(function (data) {
             console.log(data);
-        })
+            let weatherDataDiv = document.getElementById(`weatherData`);
+            weatherDataDiv.innerHTML = ""
+            for (let i = 0; i < 5; i++) {
+                weatherDataDiv.innerHTML += `<div class="card text-center col-2">
+    <div class="card-title text-nowrap">
+        ${new Date(data.daily[i].dt * 1000).toDateString()}
+    </div>
+        <hr>
+        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
+        ${data.daily[i].weather[0].description}
+        <br>
+        ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
+</div>`
+            }
+        });
     }
 
     newMarker.on('dragend', onDragEnd);
+    let table = document.getElementById("map");
+    table.addEventListener("mouseenter", function() {
+        //toggle the body element to turn dark
+        let body = document.getElementById("table");
+        body.classList.toggle("light-box");
+    })
+
+    table.addEventListener("mouseleave", function() {
+        let body = document.getElementById("table");
+        body.classList.toggle("light-box");
+    })
 
 
 })();
