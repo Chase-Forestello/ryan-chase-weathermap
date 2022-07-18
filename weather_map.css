@@ -76,4 +76,18 @@ body {
 /*    display: none;*/
 /*}*/
 
+#map {
+    box-shadow: black 0 0 5px;
+    border-radius: 1em;
+}
+
+#map:hover {
+    transform: translate(0, -2px);
+    box-shadow: 0 0 25px 0 black;
+    transition: 50ms ease;
+}
+.light-box{
+    /*background-color: #252525;*/
+}
+
 

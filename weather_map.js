@@ -160,4 +160,19 @@
     newMarker.on('dragend', onDragEnd);
 
 
+
+    //everytime I hover on the body element
+    let table = document.getElementById("map");
+    table.addEventListener("mouseenter", function() {
+        //toggle the body element to turn dark
+        let body = document.getElementById("table");
+        body.classList.toggle("light-box");
+    })
+
+    table.addEventListener("mouseleave", function() {
+        let body = document.getElementById("table");
+        body.classList.toggle("light-box");
+    })
+
+
 })();

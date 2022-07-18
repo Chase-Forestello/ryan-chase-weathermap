@@ -12,12 +12,14 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
         <script src="https://kit.fontawesome.com/26f09e8c8b.js" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body id="table">
         <div id="wrapper">
             <h1>My First Weather Map!</h1>
             <h6>5-day Forecast</h6>
-            <div id='map' style='width: 800px; height: 600px;'></div>
+            <div id='map'  style='width: 800px; height: 600px;'></div>
             <div id="mapTools" class="row">
+                <p>
+                <hr>
                 <div class="col">
                     <label for="zoomIn">Zoom In</label>
                     <button id="zoomIn" title="Zoom In" type="button">+</button>
