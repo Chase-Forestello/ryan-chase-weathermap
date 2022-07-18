@@ -45,14 +45,14 @@
         <div class="front card-block">
             <div class="card-text">
                 <div class="weatherIconAlignment card text-center col-md-12 col-lg-2">
-                    <div class="card-title">
+                    <div class="card-title text-nowrap">
                         ${new Date(data.daily[i].dt * 1000).toDateString()}
                     </div>
                     <hr>
                     <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
                     ${data.daily[i].weather[0].description}
                     <br>
-                    HI: ${data.daily[i].temp.max}&#8457; <br> LO: ${data.daily[i].temp.min}&#8457;
+                    ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
                 </div>
             </div>
         </div>
@@ -78,7 +78,6 @@
                 return data.features[0].center;
             });
     }
-
     // Various zoom options with buttons and select
     let zoomInBtn = document.getElementById(`zoomIn`);
     zoomInBtn.addEventListener("click", function (event) {
@@ -171,14 +170,14 @@
         <div class="front card-block">
             <div class="card-text">
                 <div class="weatherIconAlignment card text-center col-md-12 col-lg-2">
-                    <div class="card-title">
+                    <div class="card-title text-nowrap">
                         ${new Date(data.daily[i].dt * 1000).toDateString()}
                     </div>
                     <hr>
                     <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
                     ${data.daily[i].weather[0].description}
                     <br>
-                    HI: ${data.daily[i].temp.max}&#8457; <br> LO: ${data.daily[i].temp.min}&#8457;
+                    ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
                 </div>
             </div>
         </div>
@@ -194,14 +193,14 @@
 
     newMarker.on('dragend', onDragEnd);
     let table = document.getElementById("map");
-    table.addEventListener("mouseenter", function () {
+    table.addEventListener("mouseenter", function() {
         //toggle the body element to turn dark
         let body = document.getElementById("table");
         body.classList.toggle("light-box");
         coordinates.classList.toggle('whiteText');
     })
 
-    table.addEventListener("mouseleave", function () {
+    table.addEventListener("mouseleave", function() {
         let body = document.getElementById("table");
         body.classList.toggle("light-box");
         coordinates.classList.toggle('whiteText');
