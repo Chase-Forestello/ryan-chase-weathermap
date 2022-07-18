@@ -42,15 +42,27 @@
         let weatherDataDiv = document.getElementById(`weatherData`);
         for (let i = 0; i < 5; i++) {
             weatherDataDiv.innerHTML +=
-                `<div class="card text-center col-2">
-    <div class="card-title text-nowrap">
-        ${new Date(data.daily[i].dt * 1000).toDateString()}
+                `<div class="card-container col-md-12 col-lg-2">
+    <div class="card card-flip col-md-12 col-lg-2" style="height: 65%">
+        <div class="front card-block">
+            <div class="card-text">
+                <div class="weatherIconAlignment card text-center col-md-12 col-lg-2">
+                    <div class="card-title text-nowrap">
+                        ${new Date(data.daily[i].dt * 1000).toDateString()}
+                    </div>
+                    <hr>
+                    <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
+                    ${data.daily[i].weather[0].description}
+                    <br>
+                    ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
+                </div>
+            </div>
+        </div>
+        <div class="back card-block">
+            <p class="text-center fw-bold">content content content content content tent  content</p>
+        </div>
     </div>
-        <hr>
-        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
-        ${data.daily[i].weather[0].description}
-        <br>
-        ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
+</div>
 </div>`
         }
     });
@@ -155,12 +167,12 @@
             let weatherDataDiv = document.getElementById(`weatherData`);
             weatherDataDiv.innerHTML = ""
             for (let i = 0; i < 5; i++) {
-                weatherDataDiv.innerHTML += `<div class="card text-center col-2">
+                weatherDataDiv.innerHTML += `<div class="weatherIconAlignment card text-center col-2">
     <div class="card-title text-nowrap">
         ${new Date(data.daily[i].dt * 1000).toDateString()}
     </div>
         <hr>
-        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
+        <img class="weatherIcons" src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
         ${data.daily[i].weather[0].description}
         <br>
         ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
