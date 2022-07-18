@@ -24,6 +24,36 @@
 
     });
 
+    // OpenWeather API call
+    let queryParams = new URLSearchParams({
+        APPID: OPENWEATHER_API_KEY,
+        lat: 29.426742,
+        lon: -98.489765,
+        units: "imperial"
+    });
+    console.log(queryParams);
+    const url = `https://api.openweathermap.org/data/2.5/onecall?${queryParams}`;
+    console.log(url);
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+        console.log(data);
+        let weatherDataDiv = document.getElementById(`weatherData`);
+        for (let i = 0; i < 5; i++) {
+
+
+            weatherDataDiv.innerHTML +=
+                `<div class="card col-2">
+                        <div class="card-title text-nowrap">
+                        ${data.daily[i].dt}
+</div>
+<div class=""
+                    </div>`
+        }
+    })
+    // new Date(dayInfo.dt * 1000).toDateString());
+
     // Function to geocode addresses with fetch to mapbox.
     function getLngLatFromAddress(address, token = MAPBOX_API_KEY) {
         var baseUrl = 'https://api.mapbox.com';
@@ -36,7 +66,6 @@
                 return data.features[0].center;
             });
     }
-
     // Various zoom options with buttons and select
     let zoomInBtn = document.getElementById(`zoomIn`);
     zoomInBtn.addEventListener("click", function (event) {
@@ -96,21 +125,7 @@
 
 
 
-    // OpenWeather API call
-    let queryParams = new URLSearchParams({
-        APPID: OPENWEATHER_API_KEY,
-        lat: 29.426742,
-        lon: -98.489765,
-        units: "imperial"
-    });
-    const url = `https://api.openweathermap.org/data/2.5/onecall?${queryParams}`;
-    console.log(url);
-    fetch(url)
-        .then(function (response){
-            return response.json();
-        }).then(function (data) {
-        console.log(data);
-    })
+
 
     const coordinates = document.getElementById('coordinates');
         newMarker = new mapboxgl.Marker({
@@ -120,10 +135,26 @@
         newMarker.addTo(map);
 
     function onDragEnd() {
-        let lngLat = newMarker.getLngLat();
+        const lngLat = newMarker.getLngLat();
         console.log(lngLat);
         coordinates.style.display = 'block';
         coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
+        // OpenWeather API call
+        let queryParams = new URLSearchParams({
+            APPID: OPENWEATHER_API_KEY,
+            lat: lngLat.lat,
+            lon: lngLat.lng,
+            units: "imperial"
+        });
+        console.log(queryParams);
+        const url = `https://api.openweathermap.org/data/2.5/onecall?${queryParams}`;
+        console.log(url);
+        fetch(url)
+            .then(function (response) {
+                return response.json();
+            }).then(function (data) {
+            console.log(data);
+        })
     }
 
     newMarker.on('dragend', onDragEnd);
