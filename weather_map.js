@@ -47,7 +47,7 @@
         ${new Date(data.daily[i].dt * 1000).toDateString()}
     </div>
         <hr>
-        <img url="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png">
+        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
         ${data.daily[i].weather[0].description}
         <br>
         ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
@@ -155,12 +155,12 @@
             let weatherDataDiv = document.getElementById(`weatherData`);
             weatherDataDiv.innerHTML = ""
             for (let i = 0; i < 5; i++) {
-                weatherDataDiv.innerHTML = `<div class="card text-center col-2">
+                weatherDataDiv.innerHTML += `<div class="card text-center col-2">
     <div class="card-title text-nowrap">
         ${new Date(data.daily[i].dt * 1000).toDateString()}
     </div>
         <hr>
-        <img url="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png">
+        <img src="http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png" alt="weather icons">
         ${data.daily[i].weather[0].description}
         <br>
         ${data.daily[i].temp.max}, ${data.daily[i].temp.min}
