@@ -44,7 +44,7 @@
 
 
             weatherDataDiv.innerHTML +=
-                `<div class="card col-2">
+                `<div class="card text-center col-2">
     <div class="card-title text-nowrap">
         ${new Date(data.daily[i].dt * 1000).toDateString()}
     </div>
@@ -126,10 +126,6 @@
             }
         }
     })
-
-
-
-
 
     const coordinates = document.getElementById('coordinates');
     newMarker = new mapboxgl.Marker({
