@@ -2,8 +2,6 @@
 (async function () {
     "use strict";
 
-
-
     function clickEffect(e){
         let d=document.createElement("div");
         d.className="clickEffect";
@@ -12,8 +10,6 @@
         d.addEventListener('animationend',function(){d.parentElement.removeChild(d);}.bind(this));
     }
     document.addEventListener('click', clickEffect);
-
-
 
 
     var newMarker;
@@ -63,7 +59,7 @@
         for (let i = 0; i < 5; i++) {
             weatherDataDiv.innerHTML +=
                 `<div class="card-container col-md-12 col-lg-2">
-    <div class="card card-flip col-md-12 col-lg-2" style="height: 65%">
+    <div class="card card-flip col-md-12 col-lg-2" style="height: 218px">
         <div class="front card-block">
             <div class="card-text">
                 <div class="weatherIconAlignment card text-center col-md-12 col-lg-2">
@@ -100,7 +96,6 @@
                 return data.features[0].center;
             });
     }
-
     // Various zoom options with buttons and select
     let zoomInBtn = document.getElementById(`zoomIn`);
     zoomInBtn.addEventListener("click", function (event) {
@@ -108,14 +103,12 @@
         currentZoom += 2;
         map.setZoom(currentZoom);
     });
-
     let zoomOutBtn = document.getElementById(`zoomOut`);
     zoomOutBtn.addEventListener("click", function (event) {
         let currentZoom = map.getZoom();
         currentZoom -= 2;
         map.setZoom(currentZoom);
     });
-
     let zoomSelect = document.getElementById(`zoomSelect`);
     console.log(`Logging currently selected zoom value: ${zoomSelect.value}`);
     zoomSelect.addEventListener("change", function (event) {
@@ -123,7 +116,6 @@
         map.setZoom(zoomSelect.value);
     });
     const currentMarkers = [];
-
     // Allows user to enter any place or address and have a marker appear on
     // that place.
     // Markers are added to a current marker array for optional removal.
@@ -142,13 +134,24 @@
         currentMarkers.push(newMarker);
     })
 
+    var input = document.getElementById("searchInput");
+// Execute a function when the user releases a key on the keyboard
+    input.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("searchBtn").click();
+        }
+    });
+
     // Variable that grabs coords of current mouse position in case we want to start with no marker
     //and allow user to
     // map.on('mousemove', (e) => {
     //        JSON.stringify(e.lngLat.wrap());
     //     let mousePosition = (e.lngLat);
     // });
-
     let removeMarkersBtn = document.getElementById(`removeMarkersBtn`);
     removeMarkersBtn.addEventListener("click", function (event) {
         if (currentMarkers !== null) {
@@ -157,14 +160,12 @@
             }
         }
     })
-
     const coordinates = document.getElementById('coordinates');
     newMarker = new mapboxgl.Marker({
         draggable: true
     })
     newMarker.setLngLat([-98.489765, 29.426742])
     newMarker.addTo(map);
-
     function onDragEnd() {
         const lngLat = newMarker.getLngLat();
         console.log(lngLat);
@@ -190,7 +191,7 @@
             weatherDataDiv.innerHTML = ""
             for (let i = 0; i < 5; i++) {
                 weatherDataDiv.innerHTML += `<div class="card-container col-md-12 col-lg-2">
-    <div class="card card-flip col-md-12 col-lg-2" style="height: 65%">
+    <div class="card card-flip col-md-12 col-lg-2" style="height: 218px">
         <div class="front card-block">
             <div class="card-text">
                 <div class="weatherIconAlignment card text-center col-md-12 col-lg-2">
@@ -214,20 +215,27 @@
             }
         });
     }
-
     newMarker.on('dragend', onDragEnd);
     let table = document.getElementById("map");
-    table.addEventListener("mouseenter", function () {
+    table.addEventListener("mouseenter",function () {
         //toggle the body element to turn dark
         let body = document.getElementById("table");
-        body.classList.toggle("light-box");
-        coordinates.classList.toggle('whiteText');
+        stars.classList.toggle("stars");
+        twinkling.classList.toggle("twinkling")
+        // body.classList.toggle("light-box");
+
     })
     table.addEventListener("mouseleave", function () {
         let body = document.getElementById("table");
-        body.classList.toggle("light-box");
-        coordinates.classList.toggle('whiteText');
+        // body.classList.toggle("light-box");
+        showImg();
     })
 
-
+    let stars = document.getElementById('stars')
+    let twinkling = document.getElementById(`twinkling`)
+    //for the star background: on click, toggle class .show for the following ids
+    function showImg(){
+        twinkling.classList.toggle("twinkling");
+        stars.classList.toggle("stars");
+        }
 })();
