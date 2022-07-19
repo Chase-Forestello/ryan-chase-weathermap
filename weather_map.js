@@ -237,5 +237,5 @@
     function showImg(){
         twinkling.classList.toggle("twinkling");
         stars.classList.toggle("stars");
-    }
+        }
 })();
