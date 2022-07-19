@@ -35,6 +35,7 @@
             'space-color': 'rgb(11, 11, 25)', // Background color
             'star-intensity': 0.6 // Background star brightness (default 0.35 at low zooms )}); // Set the default atmosphere style
         })
+        map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.GeolocateControl());
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(
