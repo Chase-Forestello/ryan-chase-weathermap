@@ -96,7 +96,7 @@ body {
     transition: 50ms ease;
 }
 .light-box{
-    background-color: #252525;
+    background-image: url("img/focusbackground.png");
 }
 .weatherIcons {
     width: 3em;
