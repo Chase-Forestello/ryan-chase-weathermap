@@ -12,7 +12,8 @@
         d.addEventListener('animationend',function(){d.parentElement.removeChild(d);}.bind(this));
     }
     document.addEventListener('click', clickEffect);
-    document.addEventListener('click', clickEffect);
+
+
 
 
     var newMarker;
@@ -215,7 +216,6 @@
         body.classList.toggle("light-box");
         coordinates.classList.toggle('whiteText');
     })
-
     table.addEventListener("mouseleave", function () {
         let body = document.getElementById("table");
         body.classList.toggle("light-box");
