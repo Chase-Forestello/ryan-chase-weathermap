@@ -216,26 +216,29 @@
         });
     }
     newMarker.on('dragend', onDragEnd);
+
+    let coords = document.getElementById(`coordinates`);
+    let starfield = document.getElementById(`star-field`);
     let table = document.getElementById("map");
+    //toggle the background to become starfield 
     table.addEventListener("mouseenter",function () {
-        //toggle the body element to turn dark
         let body = document.getElementById("table");
-        stars.classList.toggle("stars");
-        twinkling.classList.toggle("twinkling")
         // body.classList.toggle("light-box");
+        coords.classList.toggle(`whiteText`);
+        starfield.classList.toggle("hidden");
 
     })
     table.addEventListener("mouseleave", function () {
         let body = document.getElementById("table");
         // body.classList.toggle("light-box");
-        showImg();
+        coords.classList.toggle(`whiteText`);
+        starfield.classList.toggle("hidden");
     })
 
-    let stars = document.getElementById('stars')
-    let twinkling = document.getElementById(`twinkling`)
-    //for the star background: on click, toggle class .show for the following ids
-    function showImg(){
-        twinkling.classList.toggle("twinkling");
-        stars.classList.toggle("stars");
-        }
+    let h1 = document.getElementById("h1");
+    h1.addEventListener("click", function(){
+        // h1.setAttribute("href", "\"https://github.com\"");
+        window.location = "https://www.spacex.com/launches/"
+    })
+
 })();
